@@ -20,6 +20,11 @@ def redirect_url():
 		request.referrer or \
 		url_for('index')
 
+@app.route("/version")
+def version():
+    version = os.environ.get('APP_VERSION', 'unknown')
+    return f"TODO App Version: {version}"
+
 @app.route("/list")
 def lists ():
 	#Display the all Tasks
