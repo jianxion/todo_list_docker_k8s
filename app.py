@@ -25,6 +25,20 @@ def version():
     version = os.environ.get('APP_VERSION', 'unknown')
     return f"TODO App Version: {version}"
 
+@app.route("/health/live")
+def liveness():
+    # Check if a failure file exists (for testing)
+    if os.path.exists('/tmp/fail-liveness'):
+        return "Application is unhealthy", 500
+    return "OK", 200
+
+@app.route("/health/ready")
+def readiness():
+    # Check if app should be marked as not ready
+    if os.path.exists('/tmp/fail-readiness'):
+        return "Application not ready", 503
+    return "Ready", 200
+
 @app.route("/list")
 def lists ():
 	#Display the all Tasks

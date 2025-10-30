@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # MongoDB service
   mongodb:
     image: mongo:7.0
     container_name: todo-mongodb
@@ -13,7 +12,6 @@ services:
       - todo-network
     restart: unless-stopped
 
-  # Flask application service
   flask-app:
     build: .
     container_name: todo-flask-app
@@ -29,12 +27,10 @@ services:
       - todo-network
     restart: unless-stopped
 
-# Define named volume for MongoDB data persistence
 volumes:
   mongodb_data:
     driver: local
 
-# Define network for container communication
 networks:
   todo-network:
     driver: bridge
