@@ -10,10 +10,13 @@ client = MongoClient(mongodb_host, mongodb_port)    #Configure the connection to
 db = client.camp2016    #Select the database
 todos = db.todo #Select the collection
 
+from prometheus_flask_exporter import PrometheusMetrics
 app = Flask(__name__)
 title = "TODO with Flask"
 heading = "ToDo Reminder"
 #modify=ObjectId()
+
+metrics = PrometheusMetrics(app)
 
 def redirect_url():
 	return request.args.get('next') or \
